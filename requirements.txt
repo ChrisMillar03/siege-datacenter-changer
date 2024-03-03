@@ -1,0 +1,10 @@
+aiohttp==3.7.4.post0
+async-timeout==3.0.1
+attrs==23.2.0
+chardet==4.0.0
+idna==3.6
+multidict==6.0.5
+python-dotenv==1.0.1
+siegeapi==6.2.4
+typing_extensions==4.10.0
+yarl==1.9.4
