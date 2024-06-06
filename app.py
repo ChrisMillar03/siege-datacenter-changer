@@ -33,10 +33,8 @@ async def get_profiles(auth, uuid_list):
 
 	return profiles
 
-async def main():
-	load_dotenv()
-
-	auth = Auth(os.getenv("EMAIL"), os.getenv("PASS"))
+async def main(email, pwd):
+	auth = Auth(email, pwd)
 	game_dir = os.path.join(os.getenv("USERPROFILE"), "Documents", "My Games", "Rainbow Six - Siege")
 	uuid_list = [f.path.split("\\")[-1] for f in os.scandir(game_dir) if f.is_dir()]
 	profiles = await get_profiles(auth, uuid_list)
@@ -46,9 +44,7 @@ async def main():
 	selected_profile = None
 
 	for i, profile in enumerate(profiles):
-		number = str(i + 1) + " " if i < 9 else str(i + 1)
-
-		print(f"{number} =  {profile.username}")
+		print(f"{str(i + 1).ljust(len(str(len(profiles))))} = {profile.username}")
 
 	while not selected_profile:
 		selection = input("\n=> ")
@@ -70,12 +66,12 @@ async def main():
 	selected_datacenter = None
 
 	for i, datacenter in enumerate(datacenter_list):
-		number = str(i + 1) + " " if i < 9 else str(i + 1)
+		number = str(i + 1).ljust(len(str(len(datacenter_list))))
 
 		if datacenter == "default":
-			print(f"{number} =  default (ping based)")
+			print(f"{number} = default (ping based)")
 		else:
-			print(f"{number} =  {datacenter}")
+			print(f"{number} = {datacenter}")
 
 	while not selected_datacenter:
 		selection = input("\n=> ")
@@ -114,4 +110,5 @@ async def main():
 	time.sleep(5)
 
 if __name__ == "__main__":
-	asyncio.run(main())
+	load_dotenv()
+	asyncio.run(main(os.getenv("EMAIL"), os.getenv("PASS")))
